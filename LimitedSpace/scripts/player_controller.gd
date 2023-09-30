@@ -1,26 +1,41 @@
 extends CharacterBody3D
 
-const SPEED = 5
-const JUMP_SPEED = 4.5
-const SENSITIVITY = 0.03
-const CAMERA_ROTATION_LIMIT = Vector2(deg_to_rad(-40), deg_to_rad(60))
+const SPEED: float = 5.0
+const JUMP_SPEED: float = 4.5
+const SENSITIVITY: Vector2 = Vector2(0.01, 0.01)
+const CAMERA_ROTATION_LIMIT: Vector2 = Vector2(deg_to_rad(-90), deg_to_rad(90))
+const GRAVITY: float = 9.8
 
-var gravity = 9.8
+const BOB_FREQUENCY: float = 2
+const BOB_AMPLITUDE: float = 0.05
+
+var headbob_time: float = 0
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 
-func _unhandled_input(event):
+func _ready():
+    Input.warp_mouse(Vector2.ZERO)
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+
+func _unhandled_input(event: InputEvent):
     if event is InputEventMouseMotion:
-        head.rotate_y(-event.relative.x * SENSITIVITY)
-        camera.rotate_x(-event.relative.y * SENSITIVITY)
+        head.rotate_y(-event.relative.x * SENSITIVITY.x)
+        camera.rotate_x(-event.relative.y * SENSITIVITY.y)
         camera.rotation.x = clamp(camera.rotation.x, CAMERA_ROTATION_LIMIT.x, CAMERA_ROTATION_LIMIT.y)
 
-func _physics_process(delta):
-    if not is_on_floor():
-        velocity.y -= gravity * delta
+func _physics_process(delta: float):
+    if position.y < -10:
+        position = Vector3(0,3,0)
+        velocity = Vector3(0,0,0)
+        return
 
-    if Input.is_action_just_pressed("jump") and is_on_floor():
+    var is_grounded = is_on_floor()
+
+    if not is_grounded:
+        velocity.y -= GRAVITY * delta
+
+    if Input.is_action_just_pressed("jump") and is_grounded:
         velocity.y = JUMP_SPEED
 
     var input_dir = Input.get_vector("left", "right", "up", "down")
@@ -33,8 +48,11 @@ func _physics_process(delta):
         velocity.x = 0
         velocity.z = 0
 
-    if position.y < -10:
-        position = Vector3(0,3,0)
-        velocity = Vector3(0,0,0)
+    _headbob(delta, velocity.length(), is_grounded)
 
     move_and_slide()
+
+func _headbob(delta: float, speed: float, is_grounded: bool):
+    headbob_time += delta * speed * float(is_grounded)
+    var pos_y = sin(headbob_time * BOB_FREQUENCY) * BOB_AMPLITUDE
+    camera.position = Vector3(0, pos_y, 0)
