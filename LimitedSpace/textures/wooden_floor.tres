@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c0kopjct50p0e"]
+
+[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_mcdom"]
+[ext_resource type="Texture2D" uid="uid://cfr4galejkxmt" path="res://textures/wooden_floor.png" id="2_18kgi"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_mcdom")
+shader_parameter/tex = ExtResource("2_18kgi")
