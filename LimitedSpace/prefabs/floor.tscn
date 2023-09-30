@@ -1,9 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bksq7b6kqkhgr"]
+[gd_scene format=3 uid="uid://c3rmbtrfubecn"]
 
-[ext_resource type="PackedScene" uid="uid://beojaxeotdr04" path="res://models/tile.glb" id="1_o65dv"]
-[ext_resource type="Material" uid="uid://c0kopjct50p0e" path="res://textures/wooden_floor.tres" id="2_sgos4"]
+[node name="floor" type="Node3D"]
 
-[node name="floor" instance=ExtResource("1_o65dv")]
-
-[node name="Cube" parent="." index="0"]
-material_override = ExtResource("2_sgos4")
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.05, 0.5)
+size = Vector3(1, 0.1, 1)
