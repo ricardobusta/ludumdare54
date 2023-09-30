@@ -3,26 +3,25 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfr4galejkxmt"
-path.s3tc="res://.godot/imported/wooden_floor.png-369754c97f10d412128058a5c30cc11f.s3tc.ctex"
+path="res://.godot/imported/wooden_floor.png-369754c97f10d412128058a5c30cc11f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/wooden_floor.png"
-dest_files=["res://.godot/imported/wooden_floor.png-369754c97f10d412128058a5c30cc11f.s3tc.ctex"]
+dest_files=["res://.godot/imported/wooden_floor.png-369754c97f10d412128058a5c30cc11f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

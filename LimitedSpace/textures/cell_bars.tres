@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://s1vwpm3nedpe"]
+
+[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_edhm1"]
+[ext_resource type="Texture2D" uid="uid://5hduufsecych" path="res://textures/cell_bars.png" id="2_80ug1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_edhm1")
+shader_parameter/tex = ExtResource("2_80ug1")
