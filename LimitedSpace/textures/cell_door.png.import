@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vcxbkm7jh4e6"
-path="res://.godot/imported/crosshair.png-226e785e0f22bb09c3ce42bf42008081.ctex"
+uid="uid://slaik4tr7ar"
+path="res://.godot/imported/cell_door.png-53048f5530da53f7d4789006defd7c99.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-226e785e0f22bb09c3ce42bf42008081.ctex"]
+source_file="res://textures/cell_door.png"
+dest_files=["res://.godot/imported/cell_door.png-53048f5530da53f7d4789006defd7c99.ctex"]
 
 [params]
 
