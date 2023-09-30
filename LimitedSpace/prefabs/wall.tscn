@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://3chikskr0ovt"]
+
+[ext_resource type="PackedScene" uid="uid://beojaxeotdr04" path="res://models/tile.glb" id="1_457u6"]
+[ext_resource type="Material" uid="uid://dsxdcnxinjbpd" path="res://textures/house_wall.tres" id="2_omior"]
+
+[node name="wall" instance=ExtResource("1_457u6")]
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0.5, -0.5)
+material_override = ExtResource("2_omior")
