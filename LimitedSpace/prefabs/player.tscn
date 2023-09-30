@@ -1,13 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://buvi54o6uegfh"]
+[gd_scene load_steps=11 format=3 uid="uid://buvi54o6uegfh"]
 
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_fcdo1"]
 [ext_resource type="AudioStream" uid="uid://c4786372m271e" path="res://sound/sfx/step.wav" id="2_qvgrg"]
 [ext_resource type="AudioStream" uid="uid://lfowh1fngcse" path="res://sound/sfx/jump.wav" id="3_7d5wq"]
 [ext_resource type="AudioStream" uid="uid://b0m23eseh6pjr" path="res://sound/sfx/land.wav" id="4_lw3mp"]
+[ext_resource type="Shader" path="res://shaders/outline_screenspace.gdshader" id="5_a3a3v"]
+[ext_resource type="Script" path="res://scripts/fx_viewport.gd" id="5_bdhmd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxmx7"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tbusc"]
+viewport_path = NodePath("Head/OutlineViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rm6v4"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_a3a3v")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+shader_parameter/screen_texture = SubResource("ViewportTexture_tbusc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_kunka"]
 
 [node name="PlayerBody3D" type="CharacterBody3D"]
 script = ExtResource("1_fcdo1")
@@ -22,11 +37,28 @@ shape = SubResource("CapsuleShape3D_gxmx7")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.6, 0)
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Head"]
+current = true
+
+[node name="OutlineViewport" type="SubViewport" parent="Head"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+script = ExtResource("5_bdhmd")
+
+[node name="OutlineCamera" type="Camera3D" parent="Head/OutlineViewport"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.6, 0)
+cull_mask = 2
+fov = 60.0
+
 [node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 60.0
 
-[node name="AudioListener3D" type="AudioListener3D" parent="Head"]
-current = true
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18557e-08, 0, -0.394)
+material_override = SubResource("ShaderMaterial_rm6v4")
+mesh = SubResource("QuadMesh_kunka")
+skeleton = NodePath("")
 
 [node name="Foot" type="Node3D" parent="."]
 

@@ -19,7 +19,8 @@ var crouching: bool = false
 @export var audio_land_sfx: AudioStream
 
 @onready var head: Node3D = $Head
-@onready var camera: Camera3D = $Head/Camera3D
+@onready var camera: Node3D = $Head/Camera3D
+@onready var effects_camera: Camera3D = $Head/OutlineViewport/OutlineCamera
 @onready var foot_audio_player: AudioStreamPlayer3D = $Foot/AudioStreamPlayer3D
 
 func _ready():
@@ -78,6 +79,9 @@ func _physics_process(delta: float):
     _headbob(delta, speed, is_grounded and not jumping)
 
     move_and_slide()
+
+func _process(delta):
+    effects_camera.global_transform = camera.global_transform
 
 func _headbob(delta: float, speed: float, is_grounded: bool):
     headbob_time += delta * speed * float(is_grounded)
