@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c4otmmntccxnw"]
+
+[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_362y7"]
+[ext_resource type="Texture2D" uid="uid://dp5dyfbdgai6q" path="res://textures/broom.png" id="2_5y5ea"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_362y7")
+shader_parameter/tex = ExtResource("2_5y5ea")

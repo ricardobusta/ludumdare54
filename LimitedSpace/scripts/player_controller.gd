@@ -9,18 +9,23 @@ const CAMERA_ROTATION_LIMIT: Vector2 = Vector2(deg_to_rad(-90), deg_to_rad(90))
 const GRAVITY: float = 9.8
 const HEADBOB_FREQUENCY: float = 2
 const HEADBOB_AMPLITUDE: float = 0.05
+const HEADBOB_OFFSET: float = PI
 const RAY_LENGTH: float = 2
 const REGULAR_LAYER: int = 1
 const INTERACTION_LAYER_MASK: int = ~2
 
-var headbob_time: float = 0
-var jumping: bool = false
-var crouching: bool = false
-var last_interaction: InteractiveObject = null
+var _headbob_time: float = 0
+var _jumping: bool = false
+var _crouching: bool = false
+var _last_interaction: InteractiveObject = null
 
+@export_category("Assets")
 @export var audio_step_sfx: AudioStream
 @export var audio_jump_sfx: AudioStream
 @export var audio_land_sfx: AudioStream
+
+@export_category("Scene References")
+@export var object_name_label: Label
 
 @onready var head: Node3D = $Head
 @onready var camera: Node3D = $Head/Camera3D
@@ -47,24 +52,24 @@ func _physics_process(delta: float):
 
     if not is_grounded:
         velocity.y -= GRAVITY * delta
-        crouching = false
-    elif jumping: # was jumping + is grounded = landing
+        _crouching = false
+    elif _jumping: # was jumping + is grounded = landing
         _play_foot_sfx(audio_land_sfx)
-        jumping = false
+        _jumping = false
 
     if Input.is_action_just_pressed("crouch") and is_grounded:
-        crouching = not crouching
+        _crouching = not _crouching
 
     if Input.is_action_just_pressed("jump") and is_grounded:
-        jumping = true
-        crouching = false
+        _jumping = true
+        _crouching = false
         velocity.y = JUMP_SPEED
         _play_foot_sfx(audio_jump_sfx)
 
     var speed: float
     if Input.is_action_pressed("sprint"):
         speed = SPRINT_SPEED
-    elif crouching:
+    elif _crouching:
         speed = CROUCH_SPEED
     else:
         speed = WALK_SPEED
@@ -80,7 +85,7 @@ func _physics_process(delta: float):
         velocity.z = 0
         speed = 0
 
-    _headbob(delta, speed, is_grounded and not jumping)
+    _headbob(delta, speed, is_grounded and not _jumping)
 
     move_and_slide()
 
@@ -90,8 +95,11 @@ func _process(_delta):
     effects_camera.global_transform = camera.global_transform
 
 func _headbob(delta: float, speed: float, is_grounded: bool):
-    headbob_time += delta * speed * float(is_grounded)
-    var pos_y = sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_AMPLITUDE
+    _headbob_time += delta * speed * float(is_grounded) * HEADBOB_FREQUENCY
+    if _headbob_time > 2*PI:
+        _headbob_time -= 2*PI
+        _play_foot_sfx(audio_step_sfx)
+    var pos_y = sin(_headbob_time + HEADBOB_OFFSET) * HEADBOB_AMPLITUDE
     camera.position = Vector3(0, pos_y, 0)
 
 func _play_foot_sfx(sfx: AudioStream):
@@ -107,18 +115,20 @@ func _check_interaction():
     ray_query.collide_with_bodies = true
     ray_query.collision_mask = INTERACTION_LAYER_MASK
     var result = state.intersect_ray(ray_query)
-    if result:
-        #print("Hit: ", result.collider.name)
+    if result: # object hit
         var obj = result.collider as InteractiveObject
-        if obj:
-            last_interaction = obj
-            last_interaction.set_outline(true)
-        else:
-            _clear_interaction()
-    else:
+        if not obj == _last_interaction: # ignore if nothing changed
+            if obj:
+                _last_interaction = obj
+                _last_interaction.set_outline(true)
+                object_name_label.text = _last_interaction.object_name
+            else: # object not interactive
+                _clear_interaction()
+    else: # no object hit
         _clear_interaction()
 
 func _clear_interaction():
-    if last_interaction:
-        last_interaction.set_outline(false)
-        last_interaction = null
+    if _last_interaction:
+        _last_interaction.set_outline(false)
+        _last_interaction = null
+        object_name_label.text = ""

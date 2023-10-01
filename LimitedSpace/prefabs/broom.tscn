@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpibvolh7jse8"]
+
+[ext_resource type="PackedScene" uid="uid://c3m8ko6jagv0g" path="res://models/broom.gltf" id="1_357np"]
+[ext_resource type="Material" uid="uid://c4otmmntccxnw" path="res://textures/broom.tres" id="2_k21nd"]
+
+[node name="broom" instance=ExtResource("1_357np")]
+
+[node name="Broom" parent="." index="0"]
+material_override = ExtResource("2_k21nd")
