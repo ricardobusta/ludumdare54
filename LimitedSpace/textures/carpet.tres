@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://3xjn16cbu6fk"]
 
-[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_lrkn7"]
+[ext_resource type="Shader" path="res://shaders/flat_opaque.gdshader" id="1_lrkn7"]
 [ext_resource type="Texture2D" uid="uid://ctco4k6oyrccq" path="res://textures/carpet.png" id="2_eixj1"]
 
 [resource]

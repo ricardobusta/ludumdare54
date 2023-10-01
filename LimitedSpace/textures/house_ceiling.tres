@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cbaxwhhthliw0"]
 
-[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_46oy6"]
+[ext_resource type="Shader" path="res://shaders/flat_opaque.gdshader" id="1_46oy6"]
 [ext_resource type="Texture2D" uid="uid://dntdvtqbtuuqk" path="res://textures/house_ceiling.png" id="2_wcdhn"]
 
 [resource]

@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://wl0pq8y0d1wq"]
 
-[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_xmovi"]
+[ext_resource type="Shader" path="res://shaders/flat_transparent.gdshader" id="1_wd0mi"]
 [ext_resource type="Texture2D" uid="uid://slaik4tr7ar" path="res://textures/cell_door.png" id="2_6bxtc"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_xmovi")
+shader = ExtResource("1_wd0mi")
 shader_parameter/tex = ExtResource("2_6bxtc")

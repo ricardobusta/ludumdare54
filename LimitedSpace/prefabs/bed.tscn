@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3cqcy1c5k21d"]
+
+[ext_resource type="Material" uid="uid://ccyn67auaue6c" path="res://textures/bed.tres" id="1_kl5xc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qkvx0"]
+
+[node name="Bed" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -8.74228e-08, 1, 0, -2, -4.37114e-08, 0.5, 0.01, 1)
+material_override = ExtResource("1_kl5xc")
+mesh = SubResource("QuadMesh_qkvx0")
+skeleton = NodePath("")

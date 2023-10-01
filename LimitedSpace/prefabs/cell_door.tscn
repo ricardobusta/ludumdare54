@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://dumetm7nnirfo"]
+[gd_scene load_steps=4 format=3 uid="uid://dumetm7nnirfo"]
 
-[ext_resource type="Script" path="res://scripts/interactive_object.gd" id="1_6d5fn"]
 [ext_resource type="Material" uid="uid://wl0pq8y0d1wq" path="res://textures/cell_door.tres" id="1_q8j2j"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_vytj7"]
@@ -9,8 +8,6 @@
 size = Vector3(1, 2, 0.01)
 
 [node name="CellDoor" type="StaticBody3D"]
-script = ExtResource("1_6d5fn")
-object_name = "Porta"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0.5, 1, 0)

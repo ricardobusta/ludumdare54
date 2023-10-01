@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, depth_draw_always;
+render_mode unshaded, depth_draw_opaque;
 
 uniform sampler2D tex : source_color, filter_nearest;
 
