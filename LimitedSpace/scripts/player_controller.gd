@@ -11,6 +11,7 @@ const HEADBOB_FREQUENCY: float = 2
 const HEADBOB_AMPLITUDE: float = 0.05
 const RAY_LENGTH: float = 2
 const REGULAR_LAYER: int = 1
+const INTERACTION_LAYER_MASK: int = ~2
 
 var headbob_time: float = 0
 var jumping: bool = false
@@ -104,7 +105,7 @@ func _check_interaction():
     ray_query.from = camera.global_position
     ray_query.to = ray_query.from - camera.global_transform.basis.z * RAY_LENGTH
     ray_query.collide_with_bodies = true
-    ray_query.collision_mask = ~2
+    ray_query.collision_mask = INTERACTION_LAYER_MASK
     var result = state.intersect_ray(ray_query)
     if result:
         #print("Hit: ", result.collider.name)
