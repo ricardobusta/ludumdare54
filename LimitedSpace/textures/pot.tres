@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bmgowlh7xpke8"]
+
+[ext_resource type="Shader" path="res://shaders/flat.gdshader" id="1_rylkg"]
+[ext_resource type="Texture2D" uid="uid://beoblecst16v5" path="res://textures/pot.png" id="2_u4cdj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rylkg")
+shader_parameter/tex = ExtResource("2_u4cdj")

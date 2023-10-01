@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmxsqwvl7ylo4"]
+
+[ext_resource type="Material" uid="uid://bmgowlh7xpke8" path="res://textures/pot.tres" id="1_41mlt"]
+[ext_resource type="ArrayMesh" uid="uid://2lsqwjiq7qu4" path="res://models/pot.res" id="2_0rga6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_45bim"]
+height = 0.82
+
+[node name="Pot" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_41mlt")
+mesh = ExtResource("2_0rga6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape3D_45bim")
