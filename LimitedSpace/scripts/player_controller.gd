@@ -10,7 +10,7 @@ const GRAVITY: float = 9.8
 const HEADBOB_FREQUENCY: float = 2
 const HEADBOB_AMPLITUDE: float = 0.05
 const HEADBOB_OFFSET: float = PI
-const RAY_LENGTH: float = 2
+const RAY_LENGTH: float = 3
 const REGULAR_LAYER: int = 1
 const INTERACTION_LAYER_MASK: int = ~2
 
@@ -35,6 +35,7 @@ var _last_interaction: InteractiveObject = null
 func _ready():
     Input.warp_mouse(Vector2.ZERO)
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+    object_name_label.text = ""
 
 func _unhandled_input(event: InputEvent):
     if event is InputEventMouseMotion:
@@ -119,6 +120,7 @@ func _check_interaction():
         var obj = result.collider as InteractiveObject
         if not obj == _last_interaction: # ignore if nothing changed
             if obj:
+                _clear_interaction()
                 _last_interaction = obj
                 _last_interaction.set_outline(true)
                 object_name_label.text = _last_interaction.object_name

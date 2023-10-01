@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dl7ypgl0cy04w"]
+[gd_scene load_steps=14 format=3 uid="uid://dl7ypgl0cy04w"]
 
 [ext_resource type="PackedScene" uid="uid://c3rmbtrfubecn" path="res://prefabs/floor3x3.tscn" id="1_4gh4g"]
 [ext_resource type="PackedScene" uid="uid://buvi54o6uegfh" path="res://prefabs/player.tscn" id="1_vw7dd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b7c5lk1hyaaan" path="res://prefabs/ceiling3x3.tscn" id="5_4tsjt"]
 [ext_resource type="PackedScene" uid="uid://dumetm7nnirfo" path="res://prefabs/cell_door.tscn" id="5_f7uqa"]
 [ext_resource type="PackedScene" uid="uid://dpibvolh7jse8" path="res://prefabs/broom.tscn" id="7_cruhx"]
+[ext_resource type="Script" path="res://scripts/interactive_object.gd" id="8_2egp4"]
 [ext_resource type="Texture2D" uid="uid://vcxbkm7jh4e6" path="res://textures/crosshair.png" id="10_eqll2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gdjn4"]
@@ -261,7 +262,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 
 
 [node name="Ceiling" type="Node3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-visible = false
 
 [node name="Ceilling" parent="Node3D/Ceiling" instance=ExtResource("5_4tsjt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
@@ -292,6 +292,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
 
 [node name="broom" parent="Node3D" instance=ExtResource("7_cruhx")]
 transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 1.2, 0, 0.2)
+script = ExtResource("8_2egp4")
+object_name = "broom"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

@@ -1,9 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpibvolh7jse8"]
 
-[ext_resource type="PackedScene" uid="uid://c3m8ko6jagv0g" path="res://models/broom.gltf" id="1_357np"]
+[ext_resource type="ArrayMesh" uid="uid://oqx0vpg0jm1a" path="res://models/broom.res" id="2_6lpuu"]
 [ext_resource type="Material" uid="uid://c4otmmntccxnw" path="res://textures/broom.tres" id="2_k21nd"]
 
-[node name="broom" instance=ExtResource("1_357np")]
+[node name="Broom" type="StaticBody3D"]
 
-[node name="Broom" parent="." index="0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_k21nd")
+mesh = ExtResource("2_6lpuu")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="."]
+depth = 0.2
+polygon = PackedVector2Array(-0.5, 0, 0.5, 0, 0.4, 0.3, 0.1, 0.3, 0.1, 2.1, -0.1, 2.1, -0.1, 0.3, -0.4, 0.3)
