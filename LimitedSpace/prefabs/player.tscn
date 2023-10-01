@@ -25,6 +25,7 @@ shader_parameter/screen_texture = SubResource("ViewportTexture_tbusc")
 [sub_resource type="QuadMesh" id="QuadMesh_kunka"]
 
 [node name="PlayerBody3D" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_fcdo1")
 audio_step_sfx = ExtResource("2_qvgrg")
 audio_jump_sfx = ExtResource("3_7d5wq")

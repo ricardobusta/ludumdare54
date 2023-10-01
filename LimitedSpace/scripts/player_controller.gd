@@ -9,10 +9,13 @@ const CAMERA_ROTATION_LIMIT: Vector2 = Vector2(deg_to_rad(-90), deg_to_rad(90))
 const GRAVITY: float = 9.8
 const HEADBOB_FREQUENCY: float = 2
 const HEADBOB_AMPLITUDE: float = 0.05
+const RAY_LENGTH: float = 2
+const REGULAR_LAYER: int = 1
 
 var headbob_time: float = 0
 var jumping: bool = false
 var crouching: bool = false
+var last_interaction: InteractiveObject = null
 
 @export var audio_step_sfx: AudioStream
 @export var audio_jump_sfx: AudioStream
@@ -80,7 +83,9 @@ func _physics_process(delta: float):
 
     move_and_slide()
 
-func _process(delta):
+    _check_interaction()
+
+func _process(_delta):
     effects_camera.global_transform = camera.global_transform
 
 func _headbob(delta: float, speed: float, is_grounded: bool):
@@ -92,3 +97,27 @@ func _play_foot_sfx(sfx: AudioStream):
     foot_audio_player.stop()
     foot_audio_player.stream = sfx
     foot_audio_player.play()
+
+func _check_interaction():
+    var state = get_world_3d().direct_space_state
+    var ray_query = PhysicsRayQueryParameters3D.new()
+    ray_query.from = camera.global_position
+    ray_query.to = ray_query.from - camera.global_transform.basis.z * RAY_LENGTH
+    ray_query.collide_with_bodies = true
+    ray_query.collision_mask = ~2
+    var result = state.intersect_ray(ray_query)
+    if result:
+        #print("Hit: ", result.collider.name)
+        var obj = result.collider as InteractiveObject
+        if obj:
+            last_interaction = obj
+            last_interaction.set_outline(true)
+        else:
+            _clear_interaction()
+    else:
+        _clear_interaction()
+
+func _clear_interaction():
+    if last_interaction:
+        last_interaction.set_outline(false)
+        last_interaction = null
