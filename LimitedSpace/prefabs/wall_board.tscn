@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://mbfd87fbgkv1"]
+
+[ext_resource type="Material" uid="uid://bk36d4gd2nddp" path="res://textures/wall_board.tres" id="1_ykusl"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qkvx0"]
+
+[node name="WallBoard" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.01)
+material_override = ExtResource("1_ykusl")
+mesh = SubResource("QuadMesh_qkvx0")
+skeleton = NodePath("")

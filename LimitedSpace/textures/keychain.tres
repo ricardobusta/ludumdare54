@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b1gmx78kgo240"]
+
+[ext_resource type="Shader" path="res://shaders/flat_transparent.gdshader" id="1_g7yyx"]
+[ext_resource type="Texture2D" uid="uid://chjggl1subbrk" path="res://textures/keychain.png" id="2_rnkgj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_g7yyx")
+shader_parameter/tex = ExtResource("2_rnkgj")

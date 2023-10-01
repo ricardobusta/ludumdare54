@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtlqqjv1jdh61"]
+
+[ext_resource type="Material" uid="uid://b1gmx78kgo240" path="res://textures/keychain.tres" id="1_sse1b"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_48727"]
+radius = 0.267635
+
+[sub_resource type="QuadMesh" id="QuadMesh_qkvx0"]
+
+[node name="Keychain" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_48727")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = ExtResource("1_sse1b")
+mesh = SubResource("QuadMesh_qkvx0")
+skeleton = NodePath("")

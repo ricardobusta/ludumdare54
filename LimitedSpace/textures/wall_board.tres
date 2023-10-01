@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bk36d4gd2nddp"]
+
+[ext_resource type="Shader" path="res://shaders/flat_opaque.gdshader" id="1_rsmef"]
+[ext_resource type="Texture2D" uid="uid://dknjr00jm4uj6" path="res://textures/wall_board.png" id="2_w1wkp"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rsmef")
+shader_parameter/tex = ExtResource("2_w1wkp")

@@ -45,7 +45,7 @@ func _unhandled_input(event: InputEvent):
 
 func _physics_process(delta: float):
     if position.y < -10:
-        position = Vector3(0,3,0)
+        position = Vector3(0,1,0)
         velocity = Vector3(0,0,0)
         return
 
