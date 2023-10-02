@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcka126cke1gv"]
+
+[ext_resource type="Texture2D" uid="uid://chjggl1subbrk" path="res://textures/keychain.png" id="1_n4rxo"]
+[ext_resource type="Script" path="res://scripts/inventory/item_view.gd" id="2_t4pq2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o41uo"]
+font_size = 32
+
+[node name="ItemView" type="TextureRect" node_paths=PackedStringArray("icon_texture_rect", "amount_label")]
+custom_minimum_size = Vector2(120, 120)
+texture = ExtResource("1_n4rxo")
+script = ExtResource("2_t4pq2")
+icon_texture_rect = NodePath(".")
+amount_label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = -48.0
+offset_right = 41.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "x99"
+label_settings = SubResource("LabelSettings_o41uo")

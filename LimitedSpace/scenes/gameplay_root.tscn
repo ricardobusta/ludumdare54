@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dl7ypgl0cy04w"]
+[gd_scene load_steps=26 format=3 uid="uid://dl7ypgl0cy04w"]
 
 [ext_resource type="PackedScene" uid="uid://c3rmbtrfubecn" path="res://prefabs/floor3x3.tscn" id="1_4gh4g"]
 [ext_resource type="PackedScene" uid="uid://buvi54o6uegfh" path="res://prefabs/player.tscn" id="1_vw7dd"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b3l51ynmbhc68" path="res://prefabs/carpet.tscn" id="11_treo3"]
 [ext_resource type="PackedScene" uid="uid://dtlqqjv1jdh61" path="res://prefabs/keychain.tscn" id="12_tg6wp"]
 [ext_resource type="Texture2D" uid="uid://chjggl1subbrk" path="res://textures/keychain.png" id="14_eqhhl"]
+[ext_resource type="PackedScene" uid="uid://dcka126cke1gv" path="res://prefabs/item_view.tscn" id="19_5bv03"]
 
 [sub_resource type="Resource" id="Resource_eog0l"]
 script = ExtResource("2_p7ri6")
@@ -51,9 +52,11 @@ font_size = 36
 
 [node name="Gameplay" type="Node"]
 
-[node name="InventoryController" type="Node" parent="."]
+[node name="InventoryController" type="Node" parent="." node_paths=PackedStringArray("item_view_container")]
 script = ExtResource("1_wemkg")
 item_config = Array[ExtResource("2_p7ri6")]([SubResource("Resource_eog0l"), SubResource("Resource_cu16b")])
+item_view_prefab = ExtResource("19_5bv03")
+item_view_container = NodePath("../Control/HBoxContainer")
 
 [node name="World3D" type="Node3D" parent="."]
 
@@ -64,9 +67,10 @@ environment = SubResource("Environment_ru0bp")
 
 [node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="World3D/SoundManager"]
 
-[node name="PlayerBody3D" parent="World3D" node_paths=PackedStringArray("object_name_label") instance=ExtResource("1_vw7dd")]
+[node name="PlayerBody3D" parent="World3D" node_paths=PackedStringArray("object_name_label", "inventory_controller") instance=ExtResource("1_vw7dd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
-object_name_label = NodePath("../../Control/Label")
+object_name_label = NodePath("../../Control/ObjectNameLabel")
+inventory_controller = NodePath("../../InventoryController")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D"]
 transform = Transform3D(1, 0, 0, 0, 0.360355, 0.932815, 0, -0.932815, 0.360355, 3, 6.57999, -5)
@@ -324,7 +328,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_eqll2")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="ObjectNameLabel" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -356,12 +360,5 @@ offset_right = 60.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
+[node name="TextureRect" parent="Control/HBoxContainer" instance=ExtResource("19_5bv03")]
 layout_mode = 2
-texture = ExtResource("14_eqhhl")
-
-[node name="TextureRect2" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
