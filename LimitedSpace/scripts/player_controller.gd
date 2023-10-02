@@ -26,6 +26,7 @@ var _last_interaction: InteractiveObject = null
 
 @export_category("Scene References")
 @export var object_name_label: Label
+@export var inventory_controller: InventoryController
 
 @onready var head: Node3D = $Head
 @onready var camera: Node3D = $Head/Camera3D
@@ -91,6 +92,12 @@ func _physics_process(delta: float):
     move_and_slide()
 
     _check_interaction()
+
+    if Input.is_action_just_pressed("interact"):
+        inventory_controller.add_item("Carpet", 1)
+
+    if Input.is_action_just_pressed("crouch"):
+        inventory_controller.remove_item("Carpet", 1)
 
 func _process(_delta):
     effects_camera.global_transform = camera.global_transform
