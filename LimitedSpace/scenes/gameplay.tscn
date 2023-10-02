@@ -58,12 +58,12 @@ font_size = 36
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_0k4le"]
+[sub_resource type="Sky" id="Sky_o08p7"]
 sky_material = SubResource("ProceduralSkyMaterial_gdjn4")
 
 [sub_resource type="Environment" id="Environment_ru0bp"]
 background_mode = 2
-sky = SubResource("Sky_0k4le")
+sky = SubResource("Sky_o08p7")
 tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true

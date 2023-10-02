@@ -1,3 +1,336 @@
-[gd_scene format=3 uid="uid://c6o5h3csn7s22"]
+[gd_scene load_steps=20 format=3 uid="uid://c6o5h3csn7s22"]
 
-[node name="title_screen" type="Node2D"]
+[ext_resource type="Script" path="res://scripts/start_button.gd" id="1_3meox"]
+[ext_resource type="PackedScene" uid="uid://c3rmbtrfubecn" path="res://prefabs/floor3x3.tscn" id="1_g8cki"]
+[ext_resource type="PackedScene" uid="uid://c00r50ko0n064" path="res://prefabs/wall3x3.tscn" id="2_jxdcp"]
+[ext_resource type="PackedScene" uid="uid://suth83cu5esg" path="res://prefabs/cell1x1.tscn" id="3_c26v6"]
+[ext_resource type="PackedScene" uid="uid://b7c5lk1hyaaan" path="res://prefabs/ceiling3x3.tscn" id="4_76jtn"]
+[ext_resource type="PackedScene" uid="uid://mbfd87fbgkv1" path="res://prefabs/wall_board.tscn" id="5_0rhxt"]
+[ext_resource type="PackedScene" uid="uid://dumetm7nnirfo" path="res://prefabs/cell_door.tscn" id="6_klba8"]
+[ext_resource type="PackedScene" uid="uid://cmxsqwvl7ylo4" path="res://prefabs/pot.tscn" id="7_bqrni"]
+[ext_resource type="PackedScene" uid="uid://dpibvolh7jse8" path="res://prefabs/broom.tscn" id="9_u1utx"]
+[ext_resource type="PackedScene" uid="uid://c3cqcy1c5k21d" path="res://prefabs/bed.tscn" id="10_yc4df"]
+[ext_resource type="PackedScene" uid="uid://b3l51ynmbhc68" path="res://prefabs/carpet.tscn" id="11_x2ogf"]
+[ext_resource type="PackedScene" uid="uid://dtlqqjv1jdh61" path="res://prefabs/keychain.tscn" id="12_r3fsj"]
+[ext_resource type="PackedScene" uid="uid://b6f3pbepsb0ig" path="res://prefabs/win_board.tscn" id="13_rfovg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3n1rc"]
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_6qct4"]
+font_size = 40
+
+[sub_resource type="Theme" id="Theme_npjwe"]
+default_font_size = 50
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p133b"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0k4le"]
+sky_material = SubResource("ProceduralSkyMaterial_p133b")
+
+[sub_resource type="Environment" id="Environment_0eab4"]
+background_mode = 2
+sky = SubResource("Sky_0k4le")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.0
+fog_density = 0.1363
+
+[node name="TitleScreen" type="Node3D"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 133.0
+offset_bottom = 273.0
+grow_horizontal = 2
+text = "My Limited Cell"
+label_settings = SubResource("LabelSettings_3n1rc")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -600.5
+offset_top = -186.0
+offset_right = 600.5
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "First Godot game by Ricardo Bustamante <ricardo@busta.dev>
+Created for Ludum Dare 54 - Limited Space"
+label_settings = SubResource("LabelSettings_6qct4")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = 188.0
+offset_right = 54.5
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_npjwe")
+text = "Play"
+script = ExtResource("1_3meox")
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World3D"]
+environment = SubResource("Environment_0eab4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 0.360355, 0.932815, 0, -0.932815, 0.360355, 3, 6.57999, -5)
+
+[node name="Static" type="Node3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="Floor" type="Node3D" parent="World3D/Static"]
+
+[node name="Floor" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Floor2" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Floor5" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Floor6" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 3)
+
+[node name="Floor7" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Floor10" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+
+[node name="Floor8" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
+
+[node name="Floor9" parent="World3D/Static/Floor" instance=ExtResource("1_g8cki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Wall" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="Wall" parent="World3D/Static/Wall" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="Wall2" parent="World3D/Static/Wall" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 0, 0)
+
+[node name="Wall2" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 1)
+
+[node name="Wall" parent="World3D/Static/Wall2" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 4)
+
+[node name="Wall2" parent="World3D/Static/Wall2" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 4)
+
+[node name="Wall4" parent="World3D/Static/Wall2" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall2" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
+[node name="Wall3" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4, 0, 9)
+
+[node name="Wall" parent="World3D/Static/Wall3" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.999999, 0, 1)
+
+[node name="Wall4" parent="World3D/Static/Wall3" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
+
+[node name="Wall2" parent="World3D/Static/Wall3" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall3" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+
+[node name="Wall4" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -4, 0, 8)
+
+[node name="Wall" parent="World3D/Static/Wall4" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2.38419e-07)
+
+[node name="Wall2" parent="World3D/Static/Wall4" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.38419e-07)
+
+[node name="Wall3" parent="World3D/Static/Wall4" instance=ExtResource("2_jxdcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4.76837e-07)
+
+[node name="CellWall_1" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Cell1x1_1" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x1_2" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x1_3" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x1_4" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x1_5" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x1_6" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x1_7" parent="World3D/Static/CellWall_1" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="CellWall_2" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 6)
+
+[node name="Cell1x1" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x2" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1)
+
+[node name="Cell1x3" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x4" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x5" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 1)
+
+[node name="Cell1x6" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x7" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x8" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x9" parent="World3D/Static/CellWall_2" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="CellWall_3" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 3)
+
+[node name="Cell1x1" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x2" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1)
+
+[node name="Cell1x3" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x4" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x5" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 1)
+
+[node name="Cell1x6" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x7" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x8" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x9" parent="World3D/Static/CellWall_3" instance=ExtResource("3_c26v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="Ceiling" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Ceilling" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Ceilling2" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Ceilling4" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 3)
+
+[node name="Ceilling5" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Ceilling7" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Ceilling8" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
+
+[node name="Ceilling9" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Ceilling10" parent="World3D/Static/Ceiling" instance=ExtResource("4_76jtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+
+[node name="WallBoard" parent="World3D/Static" instance=ExtResource("5_0rhxt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 1.4, 4)
+
+[node name="Interactive" type="Node3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="CellDoor" parent="World3D/Interactive" instance=ExtResource("6_klba8")]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -1, 0, 4)
+collision_layer = 2
+
+[node name="Pot" parent="World3D/Interactive" instance=ExtResource("7_bqrni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, 3.4)
+
+[node name="Pot2" parent="World3D/Interactive" instance=ExtResource("7_bqrni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 1.4)
+
+[node name="Pot3" parent="World3D/Interactive" instance=ExtResource("7_bqrni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, 7.6)
+
+[node name="Broom" parent="World3D/Interactive" instance=ExtResource("9_u1utx")]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, -3.4, 0, 1.2)
+
+[node name="Bed" parent="World3D/Interactive" instance=ExtResource("10_yc4df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="CarpetGet" parent="World3D/Interactive" instance=ExtResource("11_x2ogf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 0, 5.5)
+
+[node name="Keychain" parent="World3D/Interactive" instance=ExtResource("12_r3fsj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, 1.92251, 3.99591)
+
+[node name="WinBoard" parent="World3D/Interactive" instance=ExtResource("13_rfovg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.4, 6)
+
+[node name="Camera3D" type="Camera3D" parent="World3D"]
+transform = Transform3D(-0.828864, 0.213804, -0.516984, 0.00431186, 0.926507, 0.376254, 0.559434, 0.309634, -0.76887, -0.481204, 2.35961, -1.36619)
