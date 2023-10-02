@@ -18,6 +18,8 @@ var _inventory_state: Dictionary = {}
 var _inventory_view: Dictionary = {}
 
 func _ready():
+    for child in item_view_container.get_children():
+        child.queue_free()
     for item in item_config:
         var entry = ItemConfigEntry.new()
         entry.texture = item.texture
