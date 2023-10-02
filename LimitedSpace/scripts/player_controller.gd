@@ -13,6 +13,9 @@ const HEADBOB_OFFSET: float = PI
 const RAY_LENGTH: float = 3
 const REGULAR_LAYER: int = 1
 const INTERACTION_LAYER_MASK: int = ~2
+const CROUCH_TIME: float = 0.3
+const CROUCH_Y: float = 0.5
+const STANDING_Y: float = 1.0
 
 var _headbob_time: float = 0
 var _jumping: bool = false
@@ -64,7 +67,7 @@ func _physics_process(delta: float):
         if _crouch_tween:
             _crouch_tween.kill()
         _crouch_tween = get_tree().create_tween()
-        _crouch_tween.tween_property(self, "scale:y", 0.5 if _crouching else 1.0, 0.3)
+        _crouch_tween.tween_property(self, "scale:y", CROUCH_Y if _crouching else STANDING_Y, CROUCH_TIME)
         _crouch_tween.play()
 
     if Input.is_action_just_pressed("jump") and is_grounded:
