@@ -18,7 +18,7 @@ var _headbob_time: float = 0
 var _jumping: bool = false
 var _crouching: bool = false
 var _last_interaction: InteractiveObject = null
-var _tween: Tween = null
+var _crouch_tween: Tween = null
 
 @export_category("Assets")
 @export var audio_step_sfx: AudioStream
@@ -27,7 +27,6 @@ var _tween: Tween = null
 
 @export_category("Scene References")
 @export var object_name_label: Label
-@export var inventory_controller: InventoryController
 
 @onready var head: Node3D = $Head
 @onready var camera: Node3D = $Head/Camera3D
@@ -62,11 +61,11 @@ func _physics_process(delta: float):
 
     if Input.is_action_just_pressed("crouch") and is_grounded:
         _crouching = not _crouching
-        if _tween:
-            _tween.kill()
-        _tween = get_tree().create_tween()
-        _tween.tween_property(self, "scale:y", 0.5 if _crouching else 1, 0.3)
-        _tween.play()
+        if _crouch_tween:
+            _crouch_tween.kill()
+        _crouch_tween = get_tree().create_tween()
+        _crouch_tween.tween_property(self, "scale:y", 0.5 if _crouching else 1.0, 0.3)
+        _crouch_tween.play()
 
     if Input.is_action_just_pressed("jump") and is_grounded:
         _jumping = true
@@ -135,9 +134,14 @@ func _check_interaction():
                 _clear_interaction()
     else: # no object hit
         _clear_interaction()
+    _interact()
 
 func _clear_interaction():
     if _last_interaction:
         _last_interaction.set_outline(false)
         _last_interaction = null
         object_name_label.text = ""
+
+func _interact():
+    if _last_interaction:
+        pass
