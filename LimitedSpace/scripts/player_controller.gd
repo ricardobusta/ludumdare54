@@ -18,6 +18,7 @@ var _headbob_time: float = 0
 var _jumping: bool = false
 var _crouching: bool = false
 var _last_interaction: InteractiveObject = null
+var _tween: Tween = null
 
 @export_category("Assets")
 @export var audio_step_sfx: AudioStream
@@ -61,6 +62,11 @@ func _physics_process(delta: float):
 
     if Input.is_action_just_pressed("crouch") and is_grounded:
         _crouching = not _crouching
+        if _tween:
+            _tween.kill()
+        _tween = get_tree().create_tween()
+        _tween.tween_property(self, "scale:y", 0.5 if _crouching else 1, 0.3)
+        _tween.play()
 
     if Input.is_action_just_pressed("jump") and is_grounded:
         _jumping = true
@@ -92,12 +98,6 @@ func _physics_process(delta: float):
     move_and_slide()
 
     _check_interaction()
-
-    if Input.is_action_just_pressed("interact"):
-        inventory_controller.add_item("Carpet", 1)
-
-    if Input.is_action_just_pressed("crouch"):
-        inventory_controller.remove_item("Carpet", 1)
 
 func _process(_delta):
     effects_camera.global_transform = camera.global_transform
