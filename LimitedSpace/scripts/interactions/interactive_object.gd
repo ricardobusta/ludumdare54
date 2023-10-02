@@ -7,6 +7,8 @@ const OUTLINE_LAYER_MASK: int = 2
 @export var object_name: String = ""
 @export var alternative_text: String = "It's an object"
 
+@export var start_disabled: bool = false
+
 @onready var message_controller: MessageController = $"/root/Gameplay/MessageController"
 
 var _interactions: Array[BaseInteraction] = []
@@ -15,6 +17,10 @@ func _ready():
     for child in get_children():
         if child is BaseInteraction:
             _interactions.append(child)
+
+    if start_disabled:
+        self.visible = false
+        self.set_process(false)
 
 func set_outline(outline: bool):
     for child in get_children():

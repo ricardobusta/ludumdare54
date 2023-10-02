@@ -45,7 +45,7 @@ func _ready():
 
 func _unhandled_input(event: InputEvent):
     if event is InputEventMouseMotion:
-        head.rotate_y(-event.relative.x * CURSOR_SENSITIVITY)
+        self.rotate_y(-event.relative.x * CURSOR_SENSITIVITY)
         camera.rotate_x(-event.relative.y * CURSOR_SENSITIVITY)
         camera.rotation.x = clamp(camera.rotation.x, CAMERA_ROTATION_LIMIT.x, CAMERA_ROTATION_LIMIT.y)
 
@@ -87,7 +87,7 @@ func _physics_process(delta: float):
         speed = WALK_SPEED
 
     var input_dir = Input.get_vector("left", "right", "up", "down")
-    var dir = (head.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    var dir = (self.basis * Vector3(-input_dir.y, 0, input_dir.x)).normalized()
 
     if dir != Vector3.ZERO:
         velocity.x = dir.x * speed

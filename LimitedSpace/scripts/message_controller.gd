@@ -13,6 +13,8 @@ func _ready():
     _clear_message()
 
 func show_message(message: String, duration: float = DEFAULT_DURATION):
+    if message == "":
+        return
     message_label.text = message
     _timer.start(duration)
 

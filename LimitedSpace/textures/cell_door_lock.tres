@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cip0g2rtrsdai"]
+
+[ext_resource type="Shader" path="res://shaders/flat_opaque.gdshader" id="1_twuvt"]
+[ext_resource type="Texture2D" uid="uid://bxg8mf2tkljue" path="res://textures/cell_door_lock.png" id="2_2s0wj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_twuvt")
+shader_parameter/tex = ExtResource("2_2s0wj")

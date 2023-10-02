@@ -16,18 +16,18 @@ class_name CollectInteraction
 @export var destroy_on_emptied: Node3D = null
 
 func interact() -> bool:
-    if required_item != "" and inventory_controller.item_amount(required_item) < required_amount:
-        message_controller.show_message(requirement_message)
-        return false
+    if required_item != "":
+        if inventory_controller.item_amount(required_item) < required_amount:
+            message_controller.show_message(requirement_message)
+            return false
 
-    if consume_required:
-        inventory_controller.remove_item(required_item, required_amount)
+        if consume_required:
+            inventory_controller.remove_item(required_item, required_amount)
 
     if contains_amount != 0:
         if collect_item != "":
             inventory_controller.add_item(collect_item, collect_amount)
-        # Show collect message
-        message_controller.show_message("Woot")
+        message_controller.show_message(collect_message)
 
         if contains_amount > 0:
             contains_amount -= collect_amount
@@ -38,6 +38,6 @@ func interact() -> bool:
 
         return false
     else:
-        # Show emptied message
+        message_controller.show_message(emptied_message)
         return false
 
