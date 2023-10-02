@@ -11,16 +11,16 @@
 radius = 0.4
 height = 1.8
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tbusc"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x7p6l"]
 viewport_path = NodePath("Head/OutlineViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rm6v4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80ac8"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_a3a3v")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_width = 2.0
-shader_parameter/screen_texture = SubResource("ViewportTexture_tbusc")
+shader_parameter/outline_width = 5.0
+shader_parameter/screen_texture = SubResource("ViewportTexture_x7p6l")
 
 [sub_resource type="QuadMesh" id="QuadMesh_kunka"]
 
@@ -57,7 +57,7 @@ fov = 60.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18557e-08, 0, -0.394)
-material_override = SubResource("ShaderMaterial_rm6v4")
+material_override = SubResource("ShaderMaterial_80ac8")
 mesh = SubResource("QuadMesh_kunka")
 skeleton = NodePath("")
 

@@ -39,8 +39,14 @@ func remove_item(id: String, amount: int):
         _inventory_state[id] = max(_inventory_state[id] - amount, 0)
     _refresh_inventory_item(id)
 
-func has_item(id: String):
+func has_item(id: String) -> bool:
     return _inventory_state.has(id) and _inventory_state[id] > 0
+
+func item_amount(id: String) -> int:
+    if _inventory_state.has(id):
+        return _inventory_state[id]
+    else:
+        return 0
 
 func _refresh_inventory_item(id: String):
     var amount = _inventory_state[id]

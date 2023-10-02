@@ -36,6 +36,8 @@ var _crouch_tween: Tween = null
 @onready var effects_camera: Camera3D = $Head/OutlineViewport/OutlineCamera
 @onready var foot_audio_player: AudioStreamPlayer3D = $Foot/AudioStreamPlayer3D
 
+@onready var message_controller: MessageController = $"/root/Gameplay/MessageController"
+
 func _ready():
     Input.warp_mouse(Vector2.ZERO)
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
@@ -146,5 +148,7 @@ func _clear_interaction():
         object_name_label.text = ""
 
 func _interact():
-    if _last_interaction:
-        pass
+    if _last_interaction and Input.is_action_just_pressed("interact"):
+        var removed = _last_interaction.interact()
+        if removed:
+            _last_interaction = null
