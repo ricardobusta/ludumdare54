@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b3855gf78kn0l"]
+
+[ext_resource type="Shader" path="res://shaders/flat_opaque.gdshader" id="1_ciwgq"]
+[ext_resource type="Texture2D" uid="uid://c71ld10vfcb7o" path="res://textures/win_board.png" id="2_xj1gk"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ciwgq")
+shader_parameter/tex = ExtResource("2_xj1gk")

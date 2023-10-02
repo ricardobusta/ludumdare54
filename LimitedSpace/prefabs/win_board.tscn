@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6f3pbepsb0ig"]
+
+[ext_resource type="Material" uid="uid://b3855gf78kn0l" path="res://textures/win_board.tres" id="1_m3ycq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qkvx0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_55b78"]
+size = Vector3(2, 1, 0.1)
+
+[node name="WallBoard" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.01)
+material_override = ExtResource("1_m3ycq")
+mesh = SubResource("QuadMesh_qkvx0")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_55b78")

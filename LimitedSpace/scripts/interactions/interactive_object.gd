@@ -19,8 +19,9 @@ func _ready():
             _interactions.append(child)
 
     if start_disabled:
-        self.visible = false
-        self.set_process(false)
+        var parent_node: Node = get_parent()
+        set_meta("parent", parent_node)
+        parent_node.remove_child.call_deferred(self)
 
 func set_outline(outline: bool):
     for child in get_children():

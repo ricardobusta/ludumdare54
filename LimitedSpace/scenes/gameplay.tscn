@@ -1,0 +1,545 @@
+[gd_scene load_steps=41 format=3 uid="uid://dl7ypgl0cy04w"]
+
+[ext_resource type="Script" path="res://scripts/inventory/inventory_controller.gd" id="1_1278q"]
+[ext_resource type="Script" path="res://scripts/inventory/item_config.gd" id="2_jkecd"]
+[ext_resource type="Texture2D" uid="uid://chjggl1subbrk" path="res://textures/keychain.png" id="3_u61d4"]
+[ext_resource type="Texture2D" uid="uid://blfn2r06g2nsl" path="res://textures/carpet_icon.png" id="4_sh1l3"]
+[ext_resource type="Texture2D" uid="uid://drsb7ix517gdm" path="res://textures/broom_icon.png" id="5_6fj4n"]
+[ext_resource type="Texture2D" uid="uid://t5dr0sys5itg" path="res://textures/stone_icon.png" id="6_uxu8c"]
+[ext_resource type="PackedScene" uid="uid://dcka126cke1gv" path="res://prefabs/item_view.tscn" id="7_3u2m6"]
+[ext_resource type="Script" path="res://scripts/message_controller.gd" id="8_wl08d"]
+[ext_resource type="Texture2D" uid="uid://vcxbkm7jh4e6" path="res://textures/crosshair.png" id="9_esn6w"]
+[ext_resource type="PackedScene" uid="uid://buvi54o6uegfh" path="res://prefabs/player.tscn" id="10_ehdwf"]
+[ext_resource type="ArrayMesh" uid="uid://oqx0vpg0jm1a" path="res://models/broom.res" id="11_gj3lf"]
+[ext_resource type="Material" uid="uid://c4otmmntccxnw" path="res://textures/broom.tres" id="12_6f5no"]
+[ext_resource type="Script" path="res://scripts/start_disabled.gd" id="13_xlqnr"]
+[ext_resource type="PackedScene" uid="uid://c3rmbtrfubecn" path="res://prefabs/floor3x3.tscn" id="14_6fv0e"]
+[ext_resource type="PackedScene" uid="uid://c00r50ko0n064" path="res://prefabs/wall3x3.tscn" id="15_7pr1h"]
+[ext_resource type="PackedScene" uid="uid://suth83cu5esg" path="res://prefabs/cell1x1.tscn" id="16_0jgfq"]
+[ext_resource type="PackedScene" uid="uid://b7c5lk1hyaaan" path="res://prefabs/ceiling3x3.tscn" id="17_4vwbx"]
+[ext_resource type="PackedScene" uid="uid://mbfd87fbgkv1" path="res://prefabs/wall_board.tscn" id="18_v47v6"]
+[ext_resource type="PackedScene" uid="uid://dumetm7nnirfo" path="res://prefabs/cell_door.tscn" id="19_h3v5s"]
+[ext_resource type="Script" path="res://scripts/interactions/interactive_object.gd" id="20_iwi5u"]
+[ext_resource type="Script" path="res://scripts/interactions/rotate_interaction.gd" id="21_kqcpm"]
+[ext_resource type="Material" uid="uid://cip0g2rtrsdai" path="res://textures/cell_door_lock.tres" id="22_f1qok"]
+[ext_resource type="PackedScene" uid="uid://cmxsqwvl7ylo4" path="res://prefabs/pot.tscn" id="23_y2exq"]
+[ext_resource type="Script" path="res://scripts/interactions/collect_interaction.gd" id="24_mkmss"]
+[ext_resource type="PackedScene" uid="uid://dpibvolh7jse8" path="res://prefabs/broom.tscn" id="25_2vgrn"]
+[ext_resource type="Script" path="res://scripts/interactions/enable_object_interaction.gd" id="26_2lni4"]
+[ext_resource type="PackedScene" uid="uid://c3cqcy1c5k21d" path="res://prefabs/bed.tscn" id="27_hds5q"]
+[ext_resource type="PackedScene" uid="uid://b3l51ynmbhc68" path="res://prefabs/carpet.tscn" id="28_xjl7n"]
+[ext_resource type="PackedScene" uid="uid://dtlqqjv1jdh61" path="res://prefabs/keychain.tscn" id="29_ub1st"]
+[ext_resource type="PackedScene" uid="uid://b6f3pbepsb0ig" path="res://prefabs/win_board.tscn" id="30_r6nh8"]
+
+[sub_resource type="Resource" id="Resource_eog0l"]
+script = ExtResource("2_jkecd")
+name = "Keychain"
+texture = ExtResource("3_u61d4")
+
+[sub_resource type="Resource" id="Resource_cu16b"]
+script = ExtResource("2_jkecd")
+name = "Carpet"
+texture = ExtResource("4_sh1l3")
+
+[sub_resource type="Resource" id="Resource_67qfh"]
+script = ExtResource("2_jkecd")
+name = "Broom"
+texture = ExtResource("5_6fj4n")
+
+[sub_resource type="Resource" id="Resource_qj5xy"]
+script = ExtResource("2_jkecd")
+name = "Stone"
+texture = ExtResource("6_uxu8c")
+
+[sub_resource type="LabelSettings" id="LabelSettings_8mhdy"]
+font_size = 36
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gdjn4"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0k4le"]
+sky_material = SubResource("ProceduralSkyMaterial_gdjn4")
+
+[sub_resource type="Environment" id="Environment_ru0bp"]
+background_mode = 2
+sky = SubResource("Sky_0k4le")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.0
+fog_density = 0.1363
+
+[sub_resource type="QuadMesh" id="QuadMesh_jpflu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b6qxn"]
+size = Vector3(0.281, 0.25, 0.0420018)
+
+[node name="Gameplay" type="Node"]
+
+[node name="InventoryController" type="Node" parent="." node_paths=PackedStringArray("item_view_container")]
+script = ExtResource("1_1278q")
+item_config = Array[ExtResource("2_jkecd")]([SubResource("Resource_eog0l"), SubResource("Resource_cu16b"), SubResource("Resource_67qfh"), SubResource("Resource_qj5xy")])
+item_view_prefab = ExtResource("7_3u2m6")
+item_view_container = NodePath("../Control/HBoxContainer")
+
+[node name="MessageController" type="Node" parent="." node_paths=PackedStringArray("message_label")]
+script = ExtResource("8_wl08d")
+message_label = NodePath("../Control/MessageLabel")
+
+[node name="Timer" type="Timer" parent="MessageController"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -19.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_esn6w")
+
+[node name="ObjectNameLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.0
+offset_top = 204.0
+offset_right = 572.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Very Big Object Name That should take a lot of space in the screen
+There might be more than one line"
+label_settings = SubResource("LabelSettings_8mhdy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.0
+offset_top = 308.0
+offset_right = 572.0
+offset_bottom = 414.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Interaction label. This is where the text will be displayed."
+label_settings = SubResource("LabelSettings_8mhdy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" parent="Control/HBoxContainer" instance=ExtResource("7_3u2m6")]
+layout_mode = 2
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World3D"]
+environment = SubResource("Environment_ru0bp")
+
+[node name="SoundManager" type="Node" parent="World3D"]
+
+[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="World3D/SoundManager"]
+
+[node name="PlayerBody3D" parent="World3D" node_paths=PackedStringArray("object_name_label") instance=ExtResource("10_ehdwf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+object_name_label = NodePath("../../Control/ObjectNameLabel")
+
+[node name="Broom" type="MeshInstance3D" parent="World3D/PlayerBody3D"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 0.4, 0.8, 0.3)
+visible = false
+mesh = ExtResource("11_gj3lf")
+surface_material_override/0 = ExtResource("12_6f5no")
+script = ExtResource("13_xlqnr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 0.360355, 0.932815, 0, -0.932815, 0.360355, 3, 6.57999, -5)
+
+[node name="Static" type="Node3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="Floor" type="Node3D" parent="World3D/Static"]
+
+[node name="Floor" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Floor2" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Floor5" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Floor6" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 3)
+
+[node name="Floor7" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Floor10" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+
+[node name="Floor8" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
+
+[node name="Floor9" parent="World3D/Static/Floor" instance=ExtResource("14_6fv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Wall" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="Wall" parent="World3D/Static/Wall" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="Wall2" parent="World3D/Static/Wall" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 0, 0)
+
+[node name="Wall2" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 1)
+
+[node name="Wall" parent="World3D/Static/Wall2" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 4)
+
+[node name="Wall2" parent="World3D/Static/Wall2" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 4)
+
+[node name="Wall4" parent="World3D/Static/Wall2" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall2" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
+[node name="Wall3" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4, 0, 9)
+
+[node name="Wall" parent="World3D/Static/Wall3" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.999999, 0, 1)
+
+[node name="Wall4" parent="World3D/Static/Wall3" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
+
+[node name="Wall2" parent="World3D/Static/Wall3" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="Wall3" parent="World3D/Static/Wall3" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+
+[node name="Wall4" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -4, 0, 8)
+
+[node name="Wall" parent="World3D/Static/Wall4" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2.38419e-07)
+
+[node name="Wall2" parent="World3D/Static/Wall4" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.38419e-07)
+
+[node name="Wall3" parent="World3D/Static/Wall4" instance=ExtResource("15_7pr1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4.76837e-07)
+
+[node name="CellWall_1" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Cell1x1_1" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x1_2" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x1_3" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x1_4" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x1_5" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x1_6" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x1_7" parent="World3D/Static/CellWall_1" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="CellWall_2" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 6)
+
+[node name="Cell1x1" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x2" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1)
+
+[node name="Cell1x3" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x4" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x5" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 1)
+
+[node name="Cell1x6" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x7" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x8" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x9" parent="World3D/Static/CellWall_2" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="CellWall_3" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 3)
+
+[node name="Cell1x1" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cell1x2" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1)
+
+[node name="Cell1x3" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="Cell1x4" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="Cell1x5" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 1)
+
+[node name="Cell1x6" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 2)
+
+[node name="Cell1x7" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0)
+
+[node name="Cell1x8" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 1)
+
+[node name="Cell1x9" parent="World3D/Static/CellWall_3" instance=ExtResource("16_0jgfq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 2)
+
+[node name="Ceiling" type="Node3D" parent="World3D/Static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Ceilling" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Ceilling2" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Ceilling4" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 3)
+
+[node name="Ceilling5" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="Ceilling7" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Ceilling8" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
+
+[node name="Ceilling9" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Ceilling10" parent="World3D/Static/Ceiling" instance=ExtResource("17_4vwbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+
+[node name="WallBoard" parent="World3D/Static" instance=ExtResource("18_v47v6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 1.4, 4)
+
+[node name="Interactive" type="Node3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="CellDoor" parent="World3D/Interactive" instance=ExtResource("19_h3v5s")]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -1, 0, 4)
+collision_layer = 2
+
+[node name="DoorLock" type="StaticBody3D" parent="World3D/Interactive/CellDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+script = ExtResource("20_iwi5u")
+object_name = "Lock"
+
+[node name="Node" type="Node" parent="World3D/Interactive/CellDoor/DoorLock" node_paths=PackedStringArray("object_to_rotate")]
+script = ExtResource("21_kqcpm")
+required_item = "Keychain"
+angle = Vector3(0, 60, 0)
+object_to_rotate = NodePath("../..")
+max_times = 1
+using_message = "Time to get out of here"
+requirement_message = "It's locked"
+used_message = "It's open already"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World3D/Interactive/CellDoor/DoorLock"]
+transform = Transform3D(0.281, 0, 0, 0, 0.25, 0, 0, 0, 1, -0.140494, 0, 0.000565767)
+material_override = ExtResource("22_f1qok")
+mesh = SubResource("QuadMesh_jpflu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World3D/Interactive/CellDoor/DoorLock"]
+transform = Transform3D(0.281, -1.91069e-15, -8.74228e-08, 0, 0.25, -8.74228e-08, -2.45658e-08, -2.18557e-08, -1, -0.140494, 0, -0.00212336)
+material_override = ExtResource("22_f1qok")
+mesh = SubResource("QuadMesh_jpflu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World3D/Interactive/CellDoor/DoorLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142736, 0, 0)
+shape = SubResource("BoxShape3D_b6qxn")
+
+[node name="Pot" parent="World3D/Interactive" instance=ExtResource("23_y2exq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, 3.4)
+script = ExtResource("20_iwi5u")
+object_name = "Pot"
+alternative_text = "It's a Pot"
+
+[node name="Node" type="Node" parent="World3D/Interactive/Pot"]
+script = ExtResource("24_mkmss")
+collect_item = "Stone"
+contains_amount = 3
+collect_message = "I got a stone from the pot"
+requirement_message = ""
+
+[node name="Pot2" parent="World3D/Interactive" instance=ExtResource("23_y2exq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 1.4)
+script = ExtResource("20_iwi5u")
+object_name = "Pot"
+alternative_text = "It's a Pot"
+
+[node name="Pot3" parent="World3D/Interactive" instance=ExtResource("23_y2exq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, 7.6)
+script = ExtResource("20_iwi5u")
+object_name = "Pot"
+alternative_text = "It's a Pot"
+
+[node name="Broom" parent="World3D/Interactive" instance=ExtResource("25_2vgrn")]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, -3.4, 0, 1.2)
+script = ExtResource("20_iwi5u")
+object_name = "Broom"
+alternative_text = "It's a broom"
+
+[node name="EnableCarpet" type="Node" parent="World3D/Interactive/Broom" node_paths=PackedStringArray("object_to_enable")]
+script = ExtResource("26_2lni4")
+required_item = "Carpet"
+object_to_enable = NodePath("../../CarpetPut")
+
+[node name="UseCarpet" type="Node" parent="World3D/Interactive/Broom"]
+script = ExtResource("24_mkmss")
+required_item = "Carpet"
+collect_message = "Maybe I can put this carpet under it."
+requirement_message = "I can't reach the broom with my bare hands."
+emptied_message = ""
+
+[node name="BroomUsed" parent="World3D/Interactive" instance=ExtResource("25_2vgrn")]
+transform = Transform3D(-4.37114e-08, -0.0871557, 0.996195, 0, 0.996195, 0.0871557, -1, 3.8097e-09, -4.35451e-08, -3.7, 0, 5.1)
+script = ExtResource("20_iwi5u")
+object_name = "Broom"
+alternative_text = "It served it's purpose already"
+start_disabled = true
+
+[node name="Bed" parent="World3D/Interactive" instance=ExtResource("27_hds5q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+script = ExtResource("20_iwi5u")
+object_name = "bed"
+
+[node name="CarpetGet" parent="World3D/Interactive" instance=ExtResource("28_xjl7n")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 0, 5.5)
+script = ExtResource("20_iwi5u")
+object_name = "Carpet"
+
+[node name="CollectCarpet" type="Node" parent="World3D/Interactive/CarpetGet" node_paths=PackedStringArray("destroy_on_emptied")]
+script = ExtResource("24_mkmss")
+collect_item = "Carpet"
+contains_amount = 1
+collect_message = "Interesting carpet. It's soft."
+requirement_message = ""
+emptied_message = ""
+destroy_on_emptied = NodePath("..")
+
+[node name="CarpetPut" parent="World3D/Interactive" instance=ExtResource("28_xjl7n")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.9, 0, 1)
+script = ExtResource("20_iwi5u")
+object_name = "Carpet"
+start_disabled = true
+
+[node name="DisableBroom" type="Node" parent="World3D/Interactive/CarpetPut" node_paths=PackedStringArray("object_to_enable")]
+script = ExtResource("26_2lni4")
+object_to_enable = NodePath("../../../PlayerBody3D/Broom")
+max_times = 1
+
+[node name="CollectBroom" type="Node" parent="World3D/Interactive/CarpetPut" node_paths=PackedStringArray("destroy_on_emptied")]
+script = ExtResource("24_mkmss")
+collect_item = "Broom"
+contains_amount = 1
+collect_message = "A-ha"
+requirement_message = ""
+emptied_message = "I'll leave this carpet here."
+destroy_on_emptied = NodePath("../../Broom")
+
+[node name="Keychain" parent="World3D/Interactive" instance=ExtResource("29_ub1st")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, 1.92251, 3.99591)
+script = ExtResource("20_iwi5u")
+object_name = "Keychain"
+
+[node name="DisableBroomHand" type="Node" parent="World3D/Interactive/Keychain" node_paths=PackedStringArray("object_to_enable")]
+script = ExtResource("26_2lni4")
+required_item = "Broom"
+object_to_enable = NodePath("../../../PlayerBody3D/Broom")
+enable = false
+
+[node name="EnableBroomWall" type="Node" parent="World3D/Interactive/Keychain" node_paths=PackedStringArray("object_to_enable")]
+script = ExtResource("26_2lni4")
+required_item = "Broom"
+object_to_enable = NodePath("../../BroomUsed")
+
+[node name="CollectKeychain" type="Node" parent="World3D/Interactive/Keychain" node_paths=PackedStringArray("destroy_on_emptied")]
+script = ExtResource("24_mkmss")
+required_item = "Broom"
+collect_item = "Keychain"
+contains_amount = 1
+collect_message = "Got the keys"
+requirement_message = "I can't reach it, it's too far"
+emptied_message = ""
+destroy_on_emptied = NodePath("..")
+
+[node name="WinBoard" parent="World3D/Interactive" instance=ExtResource("30_r6nh8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.4, 6)
+script = ExtResource("20_iwi5u")
+object_name = "WinBoard"
+alternative_text = "LDJAM54: Congratulations, you did it."
