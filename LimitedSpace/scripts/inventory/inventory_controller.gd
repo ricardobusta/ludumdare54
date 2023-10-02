@@ -1,8 +1,12 @@
 extends Node
 
+class_name InventoryController
+
 @export var item_config: Array[ItemConfig] = []
 
-@export var item_view_prefab: ItemView = null
+@export_category("View")
+@export var item_view_prefab: Resource = null
+@export var item_view_container: Control = null
 
 class ItemConfigEntry:
     var texture: Texture2D
@@ -38,18 +42,24 @@ func has_item(id: String):
 
 func _refresh_inventory_item(id: String):
     var amount = _inventory_state[id]
+    var view: ItemView = _inventory_view[id] as ItemView if _inventory_view.has(id) else null
     if amount <= 0:
-        if _inventory_view.has(id):
+        if view:
             # remove id view
-            pass # TODO
+            view.queue_free()
+            _inventory_view[id] = null
         else:
             # nothing to do
-            pass # TODO
+            pass
     else:
-        if _inventory_view.has(id):
+        if view:
             # update amount
-            pass # TODO
+            view.set_amount(amount)
         else:
             # add view with amount
-            pass # TODO
-
+            view = item_view_prefab.instantiate()
+            _inventory_view[id] = view
+            item_view_container.add_child(view)
+            view.set_amount(amount)
+            var entry: ItemConfigEntry = _item_dict[id]
+            view.set_icon(entry.texture)
