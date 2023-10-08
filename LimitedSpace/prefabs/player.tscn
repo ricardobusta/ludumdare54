@@ -45,6 +45,7 @@ current = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1152, 648)
+render_target_update_mode = 4
 script = ExtResource("5_bdhmd")
 
 [node name="OutlineCamera" type="Camera3D" parent="Head/OutlineViewport"]

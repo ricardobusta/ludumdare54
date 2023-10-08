@@ -50,6 +50,9 @@ func _unhandled_input(event: InputEvent):
         camera.rotation.x = clamp(camera.rotation.x, CAMERA_ROTATION_LIMIT.x, CAMERA_ROTATION_LIMIT.y)
 
 func _physics_process(delta: float):
+    if Input.is_action_just_pressed("escape") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+
     if position.y < -10:
         position = Vector3(0,1,0)
         velocity = Vector3(0,0,0)
@@ -148,7 +151,11 @@ func _clear_interaction():
         object_name_label.text = ""
 
 func _interact():
-    if _last_interaction and Input.is_action_just_pressed("interact"):
-        var removed = _last_interaction.interact()
-        if removed:
-            _last_interaction = null
+    if Input.is_action_just_pressed("interact"):
+        if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+            Input.warp_mouse(Vector2.ZERO)
+            Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+        if _last_interaction:
+            var removed = _last_interaction.interact()
+            if removed:
+                _last_interaction = null
